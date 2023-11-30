@@ -2,15 +2,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import { ClerkProvider, UserButton, SignedIn,
+   } from "@clerk/clerk-react";
+ 
 
 const Home = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className=" relative flex h-screen bg-gray-100">
       {/* Sidebar */}
+      <div className='absolute top-3 right-3 '>
+          <UserButton/>
+        </div>
       <div className="w-1/4 bg-white border-r p-4">
-        <Link to="/account-profile" className="block p-2 bg-blue-500 text-white rounded mb-2">
-          Account Profile
-        </Link>
+      
         <Link to="/settings" className="block p-2 bg-blue-500 text-white rounded mb-2">
           Settings
         </Link>
@@ -57,9 +61,7 @@ const Home = () => {
           <Link to="/transactions" className="action-button">
             <button>View Transactions</button>
           </Link>
-          <Link to="/account-settings" className="action-button">
-            <button>Account Settings</button>
-          </Link>
+          
         </div>
       </div>
     </div>

@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
 import Transactions from './components/Transactions';
-import AccountSettings from './components/AccountSettings';
 import { ClerkProvider, UserButton, SignedIn,
   SignedOut,
   RedirectToSignIn,
