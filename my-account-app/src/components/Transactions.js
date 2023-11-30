@@ -74,10 +74,9 @@ function Transactions() {
       <h3>Transaction History</h3>
       
         
-          {transactions.map((transaction, index) => (
-              <Transaction key={index} transaction={transaction} />
-          ))}
-      
+      {transactions.slice(-5).map((transaction, index) => (
+    <Transaction key={index} transaction={transaction} />
+  ))}
       
 
       {/* Conditionally render error message if it exists */}

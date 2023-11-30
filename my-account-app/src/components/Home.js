@@ -47,9 +47,9 @@ const Home = () => {
             <p className="section-description">
               View a summary of your account, including current balance, recent transactions, and account status.
             </p>
-            {transactions.map((transaction, index) => (
-        <Transaction key={index} transaction={transaction} />
-      ))}
+            {transactions.slice(-5).map((transaction, index) => (
+    <Transaction key={index} transaction={transaction} />
+  ))}
           </div>
 
           {/* Quick Actions */}
