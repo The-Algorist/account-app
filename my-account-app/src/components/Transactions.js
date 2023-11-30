@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Transactions.css';
+import Transaction from './Transaction';
+
 
 function Transactions() {
   const [amount, setAmount] = useState(0);
@@ -49,41 +51,34 @@ function Transactions() {
   };
 
   return (
-    <div>
+    <div className='flex justify-center items-center flex-col mt-20'>
       <h2>Transactions</h2>
       <p>Balance: ${balance}</p>
-      <form>
+      <form className='mr-20 w-50 '>
         <label>Amount:</label>
-        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
-
-        <button type="button" onClick={handleCredit}>
+        <div className='w-40'>
+        <input classname="rounded-full" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        </div>
+        <div className='w-full mb-5'>
+        <button className='p-4 rounded-full w-40 h-12 bg-green-500' onClick={handleCredit}>
           Credit
         </button>
-
-        <button type="button" onClick={handleDebit}>
+        </div>
+        <div className='mb-5'>
+        <button className='p-4 rounded-full w-40 h-12 bg-green-500 mr-5' onClick={handleDebit}>
           Debit
         </button>
+        </div>
       </form>
 
       <h3>Transaction History</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
+      
+        
           {transactions.map((transaction, index) => (
-            <tr key={index}>
-              <td>{transaction.date}</td>
-              <td>{transaction.type}</td>
-              <td>${transaction.amount}</td>
-            </tr>
+              <Transaction key={index} transaction={transaction} />
           ))}
-        </tbody>
-      </table>
+      
+      
 
       {/* Conditionally render error message if it exists */}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
