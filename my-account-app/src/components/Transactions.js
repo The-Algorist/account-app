@@ -5,13 +5,10 @@ import Transaction from './Transaction';
 
 function Transactions() {
   const [amount, setAmount] = useState(0);
-  const [balance, setBalance] = useState(() => {
-    // Load balance from local storage on component mount
-    const storedBalance = JSON.parse(localStorage.getItem('balance'));
-    return storedBalance || 2500; // Default balance if not found in local storage
-  });
-  
+  const [balance, setBalance] = useState(2500);
   const [transactions, setTransactions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(''); // New state variable for error message
+
   // Load transactions from local storage on component mount
   useEffect(() => {
     const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
