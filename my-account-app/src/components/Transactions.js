@@ -22,7 +22,7 @@ function Transactions() {
 
   
   const [transactions, setTransactions] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(''); // New state variable for error message
+ 
 
   // Load transactions from local storage on component mount
   useEffect(() => {
