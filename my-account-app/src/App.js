@@ -22,13 +22,22 @@ function App() {
     <ClerkProvider publishableKey={clerkPubKey}>
     <Router>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
      
-        <Route path="/" element={<SignIn />} />
+        <Route path="/login" element={<SignIn />} />
         
         <Route path="/register" element={<SignUp />} />
 
-        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/transactions" element={
+          <>
+            <SignedIn>
+              <Transactions />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+          } />
        
         <Route path="/account-settings" element={<UserButton />} />
       </Routes>
