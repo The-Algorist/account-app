@@ -6,35 +6,16 @@ function Transactions() {
   const [balance, setBalance] = useState(2500);
   const [transactions, setTransactions] = useState([]);
 
+  // Load transactions from local storage on component mount
   useEffect(() => {
-    // Load transactions from JSON file on component mount
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/transactions.json');
-        const data = await response.json();
-        setTransactions(data);
-      } catch (error) {
-        console.error('Error loading transactions:', error);
-      }
-    };
-
-    fetchData();
+    const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    setTransactions(storedTransactions);
   }, []);
 
-  const saveTransactions = async () => {
-    // Save transactions to JSON file
-    try {
-      await fetch('/transactions.json', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(transactions),
-      });
-    } catch (error) {
-      console.error('Error saving transactions:', error);
-    }
-  };
+  // Save transactions to local storage whenever transactions state changes
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   const handleCredit = () => {
     // Validate positive amount
@@ -48,9 +29,6 @@ function Transactions() {
     setBalance((prevBalance) => prevBalance + creditAmount);
     const newTransaction = { type: 'credit', amount: creditAmount, date: new Date().toISOString() };
     setTransactions([...transactions, newTransaction]);
-
-    // Save transactions to JSON file
-    saveTransactions();
   };
 
   const handleDebit = () => {
@@ -65,9 +43,6 @@ function Transactions() {
     setBalance((prevBalance) => prevBalance - debitAmount);
     const newTransaction = { type: 'debit', amount: debitAmount, date: new Date().toISOString() };
     setTransactions([...transactions, newTransaction]);
-
-    // Save transactions to JSON file
-    saveTransactions();
   };
 
   return (
