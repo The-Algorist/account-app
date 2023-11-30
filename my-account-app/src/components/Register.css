@@ -1,38 +1,24 @@
 /* src/components/Register.css */
 
+/* src/components/Register.css */
+
 .register-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
+    @apply max-w-md mx-auto p-8 border rounded shadow bg-white;
   }
   
   label {
-    margin-bottom: 8px;
+    @apply block mb-2 font-bold;
   }
   
   input {
-    padding: 8px;
-    margin-bottom: 16px;
+    @apply w-full px-4 py-2 mb-4 border rounded;
   }
   
   button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    @apply w-full py-2 text-white bg-green-500 rounded cursor-pointer;
   }
   
   button:hover {
-    background-color: #45a049;
+    @apply bg-green-600;
   }
   
