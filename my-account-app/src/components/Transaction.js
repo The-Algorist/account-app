@@ -1,7 +1,7 @@
 // Transaction.js
 import React from 'react';
 
-function Transaction({ transaction }) {
+function Transaction({ transaction, balance }) {
     return (
         <table className="table-auto">
      <thead>
@@ -15,6 +15,7 @@ function Transaction({ transaction }) {
             <td className='w-20'>{transaction.date}</td>
             <td className='w-20'>{transaction.type}</td>
             <td>${transaction.amount}</td>
+            
         </tr>
         </table>
     );

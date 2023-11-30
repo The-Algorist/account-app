@@ -14,6 +14,12 @@ const Home = () => {
     const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
     setTransactions(storedTransactions);
   }, []);
+  const [balance, setBalance] = useState()
+  // Fetch the balance of the account on page load
+  useEffect(() => {
+    const storedBalance = JSON.parse(localStorage.getItem('balance')) || [];
+    setBalance(storedBalance);
+  }, []);
 
   return (
     <div className=" relative flex h-screen bg-gray-100">
@@ -47,9 +53,15 @@ const Home = () => {
             <p className="section-description">
               View a summary of your account, including current balance, recent transactions, and account status.
             </p>
+            <div className='my-8'>
+            <p className=''> Balance</p>
+            <p className=''> ${balance}</p>
+            </div>
+            <div className=''>
             {transactions.slice(-5).map((transaction, index) => (
     <Transaction key={index} transaction={transaction} />
   ))}
+  </div>
           </div>
 
           {/* Quick Actions */}

@@ -5,11 +5,21 @@ import Transaction from './Transaction';
 
 function Transactions() {
   const [amount, setAmount] = useState(0);
-  const [balance, setBalance] = useState(() => {
-    // Load balance from local storage on component mount
-    const storedBalance = JSON.parse(localStorage.getItem('balance'));
-    return storedBalance || 2500; // Default balance if not found in local storage
-  });
+  const [errorMessage, setErrorMessage] = useState()
+  const [balance, setBalance] = useState()
+  // Fetch the balance of the account on page load
+  useEffect(() => {
+    const storedBalance = JSON.parse(localStorage.getItem('balance')) || [];
+    setBalance(storedBalance);
+  }, []);
+
+  // Save transactions to local storage whenever transactions state changes
+  useEffect(() => {
+    localStorage.setItem('balance', JSON.stringify(balance));
+  }, [balance]);
+
+
+
   
   const [transactions, setTransactions] = useState([]);
   // Load transactions from local storage on component mount
