@@ -1,38 +1,29 @@
 /* src/components/Login.css */
 
+body {
+  @apply h-screen flex items-center justify-center bg-gray-100;
+}
+
 .login-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    margin-bottom: 8px;
-  }
-  
-  input {
-    padding: 8px;
-    margin-bottom: 16px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+  @apply max-w-md mx-auto p-8 border rounded shadow bg-white;
+}
+
+form {
+  @apply flex flex-col;
+}
+
+label {
+  @apply block mb-2 font-bold;
+}
+
+input {
+  @apply w-full max-w-md px-4 py-2 mb-4 border rounded;
+}
+
+button {
+  @apply w-full max-w-md py-2 text-white bg-green-500 rounded cursor-pointer;
+}
+
+button:hover {
+  @apply bg-green-600;
+}
