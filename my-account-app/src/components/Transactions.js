@@ -1,20 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Transactions.css';
 
 function Transactions() {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [balance, setBalance] = useState(2500);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    // Load transactions from JSON file on component mount
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/transactions.json');
+        const data = await response.json();
+        setTransactions(data);
+      } catch (error) {
+        console.error('Error loading transactions:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const saveTransactions = async () => {
+    // Save transactions to JSON file
+    try {
+      await fetch('/transactions.json', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactions),
+      });
+    } catch (error) {
+      console.error('Error saving transactions:', error);
+    }
+  };
 
   const handleCredit = () => {
-    // Implement credit logic here
+    // Validate positive amount
+    if (amount <= 0) {
+      console.error('Invalid credit amount');
+      return;
+    }
+
+    // Update balance and save transaction
+    const creditAmount = Number(amount);
+    setBalance((prevBalance) => prevBalance + creditAmount);
+    const newTransaction = { type: 'credit', amount: creditAmount, date: new Date().toISOString() };
+    setTransactions([...transactions, newTransaction]);
+
+    // Save transactions to JSON file
+    saveTransactions();
   };
 
   const handleDebit = () => {
-    // Implement debit logic here
+    // Validate positive amount and sufficient balance
+    if (amount <= 0 || amount > balance) {
+      console.error('Invalid debit amount or insufficient balance');
+      return;
+    }
+
+    // Update balance and save transaction
+    const debitAmount = Number(amount);
+    setBalance((prevBalance) => prevBalance - debitAmount);
+    const newTransaction = { type: 'debit', amount: debitAmount, date: new Date().toISOString() };
+    setTransactions([...transactions, newTransaction]);
+
+    // Save transactions to JSON file
+    saveTransactions();
   };
 
   return (
     <div>
       <h2>Transactions</h2>
+      <p>Balance: ${balance}</p>
       <form>
         <label>Amount:</label>
         <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
@@ -27,6 +86,26 @@ function Transactions() {
           Debit
         </button>
       </form>
+
+      <h3>Transaction History</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((transaction, index) => (
+            <tr key={index}>
+              <td>{transaction.date}</td>
+              <td>{transaction.type}</td>
+              <td>${transaction.amount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
