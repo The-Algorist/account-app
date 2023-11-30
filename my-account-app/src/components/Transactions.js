@@ -5,6 +5,7 @@ function Transactions() {
   const [amount, setAmount] = useState(0);
   const [balance, setBalance] = useState(2500);
   const [transactions, setTransactions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(''); // New state variable for error message
 
   // Load transactions from local storage on component mount
   useEffect(() => {
@@ -20,7 +21,7 @@ function Transactions() {
   const handleCredit = () => {
     // Validate positive amount
     if (amount <= 0) {
-      console.error('Invalid credit amount');
+      setErrorMessage('Invalid credit amount'); // Set error message if invalid amount
       return;
     }
 
@@ -29,12 +30,13 @@ function Transactions() {
     setBalance((prevBalance) => prevBalance + creditAmount);
     const newTransaction = { type: 'credit', amount: creditAmount, date: new Date().toISOString() };
     setTransactions([...transactions, newTransaction]);
+    setErrorMessage(''); // Clear error message on successful credit
   };
 
   const handleDebit = () => {
     // Validate positive amount and sufficient balance
     if (amount <= 0 || amount > balance) {
-      console.error('Invalid debit amount or insufficient balance');
+      setErrorMessage('Invalid debit amount or insufficient balance'); // Set error message if invalid amount or insufficient balance
       return;
     }
 
@@ -43,6 +45,7 @@ function Transactions() {
     setBalance((prevBalance) => prevBalance - debitAmount);
     const newTransaction = { type: 'debit', amount: debitAmount, date: new Date().toISOString() };
     setTransactions([...transactions, newTransaction]);
+    setErrorMessage(''); // Clear error message on successful debit
   };
 
   return (
@@ -81,6 +84,9 @@ function Transactions() {
           ))}
         </tbody>
       </table>
+
+      {/* Conditionally render error message if it exists */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }
