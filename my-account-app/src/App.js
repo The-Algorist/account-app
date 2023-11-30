@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Transactions from './components/Transactions';
 import AccountSettings from './components/AccountSettings';
-import { ClerkProvider } from "@clerk/clerk-react";
+import { ClerkProvider, UserButton, } from "@clerk/clerk-react";
  
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
@@ -29,6 +29,7 @@ function App() {
         <Route path="/account-settings" element={<AccountSettings />} />
       </Routes>
     </Router>
+    <UserButton/>
     </ClerkProvider>
    
   );

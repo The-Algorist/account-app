@@ -19,8 +19,13 @@ function Login() {
    
     <>
     <h1>Protected page</h1>
-    <UserButton />
-  </>
+    <SignedIn>
+        <UserButton />
+    </SignedIn>
+    <SignedOut>
+       
+    </SignedOut>
+</>
    
    
   );
